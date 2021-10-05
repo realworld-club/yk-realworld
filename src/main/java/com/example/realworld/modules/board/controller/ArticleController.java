@@ -1,36 +1,46 @@
 package com.example.realworld.modules.board.controller;
 
+import com.example.realworld.modules.board.controller.request.NewArticleRequest;
+import com.example.realworld.modules.board.service.ArticleService;
+import com.example.realworld.modules.user.vo.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RequestMapping("/api")
 @RequiredArgsConstructor
 @RestController
 public class ArticleController {
 
-    // ?tag=AngularJS
-    // ?author=jake
-    // ?favorited=jake
-    // ?limit=20 (default 20)
-    // ?offset=0 (default 0)
-    @GetMapping("/articles")
-    public ResponseEntity<?> listArticles() {
+    private final ArticleService articleService;
+
+    @GetMapping("/articles/feed")
+    public ResponseEntity<?> feedArticles(@AuthenticationPrincipal User user) {
         return null;
     }
 
-    @GetMapping("/articles/feed")
-    public ResponseEntity<?> feedArticles() {
+    // https://mangkyu.tistory.com/72
+    // vs @ModelAttribute
+    @GetMapping("/articles")
+    public ResponseEntity<?> listArticles(@RequestParam(name = "tag", required = false) String tag,
+                                          @RequestParam(name = "author", required = false) String author,
+                                          @RequestParam(name = "favorited", required = false) String favorited,
+                                          @RequestParam(name = "limit", required = false, defaultValue = "20") Integer limit,
+                                          @RequestParam(name = "offset", required = false, defaultValue = "0") Integer offset) {
+        return null;
+    }
+
+    @PostMapping("/articles")
+    public ResponseEntity<?> createArticle(@AuthenticationPrincipal User user,
+                                           @RequestBody @Valid NewArticleRequest newArticleRequest) {
         return null;
     }
 
     @GetMapping("/articles/{slug}")
     public ResponseEntity<?> getArticle() {
-        return null;
-    }
-
-    @PostMapping("/articles")
-    public ResponseEntity<?> createArticle() {
         return null;
     }
 
