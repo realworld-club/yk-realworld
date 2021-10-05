@@ -1,8 +1,9 @@
 package com.example.realworld.modules.user.service;
 
-import com.example.realworld.modules.user.controller.request.LoginRequest;
-import com.example.realworld.modules.user.controller.request.UserCreateRequest;
+import com.example.realworld.modules.user.controller.request.LoginUserRequest;
+import com.example.realworld.modules.user.controller.request.NewUserRequest;
 import com.example.realworld.modules.user.repository.UserRepository;
+import com.example.realworld.modules.user.response.UserResponse;
 import com.example.realworld.modules.user.vo.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,18 +18,18 @@ public class LoginService {
     // private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     // TODO
-    public User login(LoginRequest loginRequest) {
+    public UserResponse login(LoginUserRequest loginUserRequest) {
         return null;
     }
 
-    public User signUp(UserCreateRequest userCreateRequest) {
+    public UserResponse createUser(NewUserRequest newUserRequest) {
 
         User user = User.builder()
-                .email(userCreateRequest.getEmail())
-                .username(userCreateRequest.getUsername())
+                .email(newUserRequest.getEmail())
+                .username(newUserRequest.getUsername())
                 // TODO - BCryptPasswordEncoder / security 추가
-                .password(userCreateRequest.getPassword())
+                .password(newUserRequest.getPassword())
                 .build();
-        return userRepository.save(user);
+        return UserResponse.of(userRepository.save(user));
     }
 }
